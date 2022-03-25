@@ -11,6 +11,7 @@ namespace InsuranceAPI.Data
         //Dbset
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Car>Cars { get; set; }
+        public DbSet<Claim> Claims { get; set; }
 
     }
 }

@@ -76,6 +76,21 @@ namespace InsuranceAPI.Controllers
            return NotFound("CarPolicy not found");
         }
 
+        [HttpDelete]
+        [Route("{id:guid}")]
+
+        public async Task<IActionResult> DeleteCar([FromRoute] Guid id)
+        {
+            var existingCar = await carDbContext.Cars.FirstOrDefaultAsync(x => x.policy_id == id);
+            if (existingCar != null)
+            {
+               carDbContext.Remove(existingCar);
+                await carDbContext.SaveChangesAsync();
+                return Ok(existingCar);
+            }
+            return NotFound("CarPolicy not found");
+        }
+
 
     }
 }
