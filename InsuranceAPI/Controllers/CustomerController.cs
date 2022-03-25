@@ -10,7 +10,7 @@ namespace InsuranceAPI.Controllers
     public class CustomerController : Controller
     {
         private readonly CustomerDbContext customerDbContext;
-        public CustomerController(CustomerDbContext customerDbContext)
+        public CustomerController(CustomerDbContext customerDbContext)            
         {
             this.customerDbContext=customerDbContext;
         }

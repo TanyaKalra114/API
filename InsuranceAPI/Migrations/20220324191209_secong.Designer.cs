@@ -4,6 +4,7 @@ using InsuranceAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InsuranceAPI.Migrations
 {
     [DbContext(typeof(CustomerDbContext))]
-    partial class CustomerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220324191209_secong")]
+    partial class secong
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,6 +28,9 @@ namespace InsuranceAPI.Migrations
                 {
                     b.Property<Guid>("policy_id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("customer_id")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("end_date")
@@ -43,6 +48,8 @@ namespace InsuranceAPI.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("policy_id");
+
+                    b.HasIndex("customer_id");
 
                     b.ToTable("Cars");
                 });
@@ -74,6 +81,17 @@ namespace InsuranceAPI.Migrations
                     b.HasKey("customer_id");
 
                     b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("InsuranceAPI.Models.Car", b =>
+                {
+                    b.HasOne("InsuranceAPI.Models.Customer", "Customers")
+                        .WithMany()
+                        .HasForeignKey("customer_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customers");
                 });
 #pragma warning restore 612, 618
         }

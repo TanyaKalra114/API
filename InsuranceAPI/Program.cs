@@ -13,6 +13,9 @@ builder.Services.AddSwaggerGen();
 //inject DbContext
 builder.Services.AddDbContext<CustomerDbContext>(options=>options.UseSqlServer(builder.Configuration.GetConnectionString("CustomerDbConnectionString")));
 
+
+
+
 builder.Services.AddCors((setup) =>
 {
     setup.AddPolicy("default", (options) =>
